@@ -1,5 +1,31 @@
 jQuery(function($) {'use strict',
 
+  jqxhr = $.getJSON( "http://192.168.1.159:8080/news/", function() {
+    console.log( "success" );
+    })
+  .done(function(data) {
+      $.each( data.results, function( key, value ) {
+          $('#news').append('<div class="col-md-6 col-xs-12">'+
+							'<div class="big_news">'+
+								'<div class="big_n_img"><img src="'+value.image+'" alt=""></div>'+
+								'<a href="#">'+value.title+'</a>'+
+								'<span class="date">'+value.create_at+'</span>'+
+								'<span class="news_type"><i class="fa fa-pencil"></i> '+value.category+'</span>'+
+								'<div class="desc">'+value.description+' </div>'+
+							'</div>'+
+						'</div>');
+        });
+
+  })
+  .fail(function() {
+    console.log( "error" );
+  })
+  .always(function() {
+    console.log( "complete" );
+  });
+
+
+
 		$('#payModal').on('shown.bs.modal', function () {
 			$('#payModal').focus()
 		});
